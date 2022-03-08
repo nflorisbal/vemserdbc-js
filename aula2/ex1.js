@@ -1,3 +1,1 @@
-let sextou = confirm('sextou?');
-
-alert(sextou ? "Sextou!" : "Ainda não sextou =(");
+console.log((confirm('sextou?') ? "Sextou!" : "Ainda não sextou =("));
