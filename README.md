@@ -5,6 +5,12 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 ## Aula 1
 
 - Tipos primitivos do JavaScript
-- Operadores lógicos
 - Convenções
+- Operadores lógicos
 - Funções / Comandos
+- Estruturas condicionais (if-else / switch)
+
+## Aula 2
+
+- Operador ternário
+- Laços de repetição
