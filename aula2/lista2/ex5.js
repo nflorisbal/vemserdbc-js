@@ -15,9 +15,7 @@ let minute = setInterval(
     function() {
         timer > 60
             ? clearInterval(minute)
-            : timer < 10 
-                ? console.log(`0${timer}`)
-                : console.log(`${timer}`);
+            : console.log(timer < 10 ? `0${timer}` :`${timer}`);
         timer++;
     }, 1000
 )

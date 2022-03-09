@@ -14,11 +14,9 @@ do {
     
     year++;
     
-    if (year < 2018) {
-        salary += salary * raise;
-    } else {
-        raise = raise + raise;
-        salary += salary * raise;
+    if (year >= 2018) {
+        raise += raise;
     }
+        salary += salary * raise;
     
 } while (year <= currentYear);
