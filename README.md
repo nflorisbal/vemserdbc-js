@@ -14,3 +14,4 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 
 - Operador ternário
 - Laços de repetição
+- setTimeout / setInterval

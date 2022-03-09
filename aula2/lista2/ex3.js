@@ -1,5 +1,6 @@
-/*3) Faça um programa onde o usuário possa escolher qual a tabuada que se deseja ver. Exiba (console) a tabuada desse número de 1 a 10;*/
+//3) Faça um programa onde o usuário possa escolher qual a tabuada que se deseja ver. Exiba (console) a tabuada desse número de 1 a 10;
 
+// utilizando parseFloat para tratar numeros com ponto
 let multiTable = parseFloat(prompt('Qual tabuada você deseja visualizar?'));
 
 if (isNaN(multiTable) || !Number.isInteger(multiTable)) {
