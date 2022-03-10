@@ -11,7 +11,7 @@ function randomNumber() {
 }
 
 function randomListNumber(list, randomNumber, many) {
-    for (let iterator = 0; iterator < many; iterator++) {
+    do {
         element = randomNumber();
         
         if(element % 12 === 0) {
@@ -19,7 +19,7 @@ function randomListNumber(list, randomNumber, many) {
         } else if(element % 2 !== 0 && element > 14 && element < 50) {
             list.push(element);
         }
-    }
+    } while (list.length < many)
     
     return list;
 }
