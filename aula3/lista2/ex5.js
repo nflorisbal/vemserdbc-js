@@ -14,11 +14,10 @@ function randomListNumber(list, randomNumber, many) {
     do {
         element = randomNumber();
         
-        if(element % 12 === 0) {
-            list.push(element);
-        } else if(element % 2 !== 0 && element > 14 && element < 50) {
+        if(element % 12 === 0 || element % 2 !== 0 && element > 14 && element < 50) {
             list.push(element);
         }
+
     } while (list.length < many)
     
     return list;
