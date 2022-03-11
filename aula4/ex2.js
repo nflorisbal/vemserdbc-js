@@ -27,10 +27,10 @@ const secondBiggestSmallest= array => {
     }
 
     if(secBiggest == secSmallest) {
-        console.log(`Segundo menor e maior é ${secSmallest}`);
+        console.log(`No array [${array}], o segundo menor e maior é ${secSmallest}.`);
     } else {
-        console.log(`Segundo menor é ${secSmallest}`);
-        console.log(`Segundo maior é ${secBiggest}`);
+        console.log(`No array [${array}], o segundo menor é ${secSmallest}.`);
+        console.log(`No array [${array}], o segundo maior é ${secBiggest}.`);
     }
 }
 
