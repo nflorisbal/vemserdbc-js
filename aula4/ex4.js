@@ -4,7 +4,7 @@
 //   ex: contarVogaisConsoantes('Oi, tenho 5 anos de idade!!! ;D')  
 //   =>  imprime:  A string "Oi, tenho 5 anos de idade!!! ;D" tem 10 vogais e 9 consoantes
 
-const vowelCount = string => {
+const vowelConsonantCount = string => {
     
     let vowels = 'aeiou';
     let consonants = 'qwrtypsdfghjklçzxcvbnm';
@@ -22,4 +22,4 @@ const vowelCount = string => {
     console.log(`A string '${string}' possui ${countVowel} vogais e ${countConsonant} consoantes.`);
 }
 
-vowelCount('Oi, tenho 5 anos de idade!!! ;D');
+vowelConsonantCount('Oi, tenho 5 anos de idade!!! ;D');

@@ -3,3 +3,9 @@
 //   => possiveis combinações da string "tri":  
 //   't', 'tr', 'ti', 'tri', 'tir', 'r', 'rt', 'ri', 'rit', 'rti', 'i', 'ir', 'it', 'irt', 'itr'
 
+const combinations = string => {
+
+}
+
+
+combinations('tri');
