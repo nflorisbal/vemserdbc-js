@@ -20,3 +20,7 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 
 - Funções
 - Métodos
+
+## Aula 4
+
+- Arrow functions
