@@ -62,22 +62,25 @@ const start = () => {
                 printTable();
                 break;
             case '5':
-                console.log('menu 5 abriu');
+                productValue();
                 break;
             case '6':
+                console.log('menu 6 abriu');
+                break;
+            case '7':
             case null:
                 alert('Trabalho concluído. Aplicação encerrada!');
                 break;
             default:
                 alert('Opção inválida. Tente novamente.');
         };
-    } while (option !== '6' && option !== null);
+    } while (option !== '7' && option !== null);
 }
 
 // função com a estrutura do menu principal retornando a escolha do usuário
 const mainMenu = () => {
     let option = prompt('=== Cadastro de Produtos ===\n\nOperações disponíveis: \n\n(1) Cadastrar produto\n(2) Excluir produto\n(3) Buscar produto'
-        + '\n(4) Listar produtos\n(5) Verificar patrimônio\n\n(6) Encerrar');
+        + '\n(4) Listar produtos\n(5) Verificar patrimônio\n(6) Verificar validade dos preços\n\n(7) Encerrar');
 
     return option;
 }
@@ -166,7 +169,7 @@ const printTable = () => {
                 alert('Impressão realizada com sucesso no console.')
                 break;
             case '3': ;
-                console.log('menu 3');
+                console.log('submenu 3');
                 break;
             case '4': ;
             case null:
@@ -175,6 +178,16 @@ const printTable = () => {
                 alert('Opção inválida. Tente novamente.');
         }
     } while (option !== '4' && option !== null)
+}
+
+// função para cálculo do patrimônio
+const productValue = () => {
+    let value = 0;
+    products.forEach(product => {
+        value += parseFloat(product.price);
+    });
+
+    alert(`O patrimônio atual da loja é R$ ${value}.`);
 }
 
 // validação da descrição
