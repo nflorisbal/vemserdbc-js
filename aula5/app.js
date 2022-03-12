@@ -48,7 +48,7 @@ const start = () => {
 
     do {
         console.table(products);
-        
+
         option = mainMenu();
 
         switch (option) {
@@ -62,7 +62,7 @@ const start = () => {
                 findProduct();
                 break;
             case '4':
-                console.log('menu 4 abriu');
+                printTable();
                 break;
             case '5':
                 console.log('menu 5 abriu');
@@ -85,6 +85,13 @@ const mainMenu = () => {
     return option;
 }
 
+const menuPrintTable = () => {
+    let option = prompt('--- Impressão de Tabelas ---\n\nOperações disponíveis: \n\n(1) Imprimir tabela completa\n(2) Imprimir tabela de descrição\n(3) Imprimir produtos específicos'
+        + '\n\n(4) Voltar');
+
+    return option;
+}
+
 // função para incluir produtos 
 const addProduct = () => {
     let description = textValidate(prompt('Inserir descrição do produto:'));
@@ -96,7 +103,7 @@ const addProduct = () => {
         if (price !== undefined) {
             product = {
                 'id': id,
-                'description': description, 
+                'description': description,
                 'price': price
             };
             products.push(product);
@@ -107,14 +114,14 @@ const addProduct = () => {
             return;
         }
     } else {
-         alert(abort());
-         return;
+        alert(abort());
+        return;
     }
 }
 
 // função para remover produtos (pelo id)
 const removeProduct = () => {
-    if(products.length > 0) {
+    if (products.length > 0) {
         let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
 
         if (idProduct !== undefined) {
@@ -124,14 +131,14 @@ const removeProduct = () => {
             alert(abort());
             return;
         }
-    } else 
+    } else
         alert('Lista de produtos vazia. Voltando ao menu principal.')
 }
 
 // função para buscar produtos (pelo id)
 const findProduct = () => {
     let tmp = [];
-    if(products.length > 0) {
+    if (products.length > 0) {
         let idProduct = idValidate(prompt('Inserir ID do produto a ser buscado:'));
 
         if (idProduct !== undefined) {
@@ -141,8 +148,33 @@ const findProduct = () => {
             alert(abort());
             return;
         }
-    } else 
+    } else
         alert('Lista de produtos vazia. Voltando ao menu principal.')
+}
+
+// função para imprimir as tabelas
+const printTable = () => {
+    let option;
+
+    do {
+        option = menuPrintTable();
+        switch (option) {
+            case '1':
+                console.log('menu 1');
+                break;
+            case '2': ;
+                console.log('menu 2');
+                break;
+            case '3': ;
+                console.log('menu 3');
+                break;
+            case '4': ;
+            case null:
+                break;
+            default:
+                alert('Opção inválida. Tente novamente.');
+        }
+    } while (option !== '4' && option !== null)
 }
 
 // validação da descrição
@@ -166,9 +198,9 @@ const priceValidate = price => {
     do {
         if (price === null)
             return;
-        
+
         price = price.replaceAll(',', '.');
-        
+
         if (!isNaN(price) && price > 0)
             validate = true;
         else
@@ -186,7 +218,7 @@ const idValidate = id => {
             return;
         else if (id !== '' && !isNaN(id) && id > 0 && !id.includes('.') && products.some(product => product.id === parseInt(id)))
             validate = true;
-        else 
+        else
             id = prompt('ID informado inválido ou não cadastrado. Tente novamente (ID deve conter somente números).');
     } while (!validate);
 
@@ -200,7 +232,7 @@ const abort = () => {
 
 
 // array de teste
-products = [ { id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '4.99' }, { id: 3, description: 'shampoo', price: '7.99' },];
+products = [{ id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '4.99' }, { id: 3, description: 'shampoo', price: '7.99' },];
 
 
 // chamada da função principal
