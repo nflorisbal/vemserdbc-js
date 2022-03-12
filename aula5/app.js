@@ -56,7 +56,7 @@ const start = () => {
                 addProduct();
                 break;
             case '2':
-                console.log('menu 2 abriu');
+                removeProduct();
                 break;
             case '3':
                 console.log('menu 3 abriu');
@@ -116,12 +116,13 @@ const addProduct = () => {
 
 // função para remover produtos
 const removeProduct = () => {
-    // let idProduct = prompt('Inserir ID do produto a ser removido:');
-
+    let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
+    
+    console.log(`produto ${idProduct} removido`);
 }
 
 const findProduct = id => {
-
+    
 }
 
 // validação da descrição
@@ -157,18 +158,20 @@ const priceValidate = price => {
     return Number(price).toFixed(2);
 }
 
-// validação do id inserido
+// validação do id
 const idValidate = id => {
     let validate = false;
     do {
         if (id === null)
             return;
-        else if (id !== '' && !isNaN(id) && id > 0)
+        else if (id !== '' && !isNaN(id) && id > 0 && !id.includes('.'))
             validate = true;
         else
             id = prompt('ID informado inválido ou não cadastrado. Tente novamente (ID deve conter somente números).');
 
     } while (!validate);
+
+    return id;
 }
 
 // mensagem para operação cancelada antes de concluir
