@@ -39,16 +39,16 @@
 
 // variáveis globais
 let products = [];
-let id = 3;
+let id = 4;
 
 // função principal
 const start = () => {
 
     let option;
 
-    console.table(products);
-
     do {
+        console.table(products);
+        
         option = mainMenu();
 
         switch (option) {
@@ -110,15 +110,19 @@ const addProduct = () => {
          alert(abort());
          return;
     }
-
-    console.table(products);
 }
 
 // função para remover produtos
 const removeProduct = () => {
     let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
-    
-    console.log(`produto ${idProduct} removido`);
+
+    if (idProduct !== undefined) {
+        products = products.filter(product => product.id !== idProduct);
+        alert("Produto removido com sucesso!");
+    } else {
+        alert(abort());
+        return;
+    }
 }
 
 const findProduct = id => {
@@ -164,14 +168,13 @@ const idValidate = id => {
     do {
         if (id === null)
             return;
-        else if (id !== '' && !isNaN(id) && id > 0 && !id.includes('.'))
+        else if (id !== '' && !isNaN(id) && id > 0 && !id.includes('.') && products.some(product => product.id === parseInt(id)))
             validate = true;
-        else
+        else 
             id = prompt('ID informado inválido ou não cadastrado. Tente novamente (ID deve conter somente números).');
-
     } while (!validate);
 
-    return id;
+    return parseInt(id);
 }
 
 // mensagem para operação cancelada antes de concluir
@@ -181,7 +184,7 @@ const abort = () => {
 
 
 // array de teste
-products = [ { id: 0, description: 'sabonete', price: '2.99' }, { id: 1, description: 'pasta de dente', price: '4.99' }, { id: 2, description: 'shampoo', price: '7.99' },];
+products = [ { id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '4.99' }, { id: 3, description: 'shampoo', price: '7.99' },];
 
 
 // chamada da função principal
