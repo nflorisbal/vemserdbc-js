@@ -48,7 +48,6 @@ const start = () => {
 
     do {
         option = mainMenu();
-        // debugger;
         switch (option) {
             case '1':
                 addProduct();
@@ -77,21 +76,32 @@ const start = () => {
 
 // função com a estrutura do menu principal retornando a escolha do usuário
 const mainMenu = () => {
-    let option = prompt('Operações disponíveis: \n\n1 - Cadastrar produto\n2 - Excluir produto\n3 - Buscar produto'
-        + '\n4 - Listar produtos\n5 - Verificar patrimônio\n\n6 - Encerrar');
+    let option = prompt('=== Cadastro de Produtos ===\n\nOperações disponíveis: \n\n(1) Cadastrar produto\n(2) Excluir produto\n(3) Buscar produto'
+        + '\n(4) Listar produtos\n(5) Verificar patrimônio\n\n(6) Encerrar');
 
     return option;
 }
 
 // função para incluir produtos 
 const addProduct = () => {
-
     let description = textValidate(prompt('Inserir descrição do produto:'));
-    console.log(description);
-    let price = priceValidate(prompt('Inserir preço do produto:'));
-    // console.log(price);
+    let price;
+    let product;
 
-    // id++;
+    if (description !== undefined) {
+        price = priceValidate(prompt(`Inserir preço do(a) ${description}:`))
+        if (price !== undefined) {
+            product = {
+                "id": id,
+                "description": description, 
+                "price": price
+            };
+            products.push(product);
+            id++;
+        } else return;
+    } else return;
+
+    console.table(products);
 }
 
 const removeProduct = id => {
@@ -121,8 +131,18 @@ const textValidate = text => {
 const priceValidate = price => {
     let validate = false;
     do {
+        if (price === null)
+            return;
         
-    }
+        price = price.replaceAll(',', '.');
+        
+        if (!isNaN(price))
+            validate = true;
+        else
+            price = prompt('Informação inserida é inválida. Tente novamente (preço deve conter apenas números).')
+    } while (!validate);
+
+    return Number(price).toFixed(2);
 }
 
 
