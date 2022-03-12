@@ -39,15 +39,18 @@
 
 // variáveis globais
 let products = [];
-let id = 0;
+let id = 3;
 
 // função principal
 const start = () => {
 
     let option;
 
+    console.table(products);
+
     do {
         option = mainMenu();
+
         switch (option) {
             case '1':
                 addProduct();
@@ -92,9 +95,9 @@ const addProduct = () => {
         price = priceValidate(prompt(`Inserir preço do(a) ${description}:`))
         if (price !== undefined) {
             product = {
-                "id": id,
-                "description": description, 
-                "price": price
+                'id': id,
+                'description': description, 
+                'price': price
             };
             products.push(product);
             alert("Produto inserido com sucesso!");
@@ -111,7 +114,9 @@ const addProduct = () => {
     console.table(products);
 }
 
-const removeProduct = id => {
+// função para remover produtos
+const removeProduct = () => {
+    let idProduct = prompt('Inserir ID do produto a ser removido:');
 
 }
 
@@ -156,6 +161,10 @@ const priceValidate = price => {
 const abort = () => {
     return 'Operação cancelada. Retornando ao menu inicial.';
 }
+
+
+// array de teste
+products = [ { id: 0, description: 'sabonete', price: '2.99' }, { id: 1, description: 'pasta de dente', price: '4.99' }, { id: 2, description: 'shampoo', price: '7.99' },];
 
 
 // chamada da função principal
