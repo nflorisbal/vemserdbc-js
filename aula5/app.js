@@ -116,7 +116,7 @@ const addProduct = () => {
 
 // função para remover produtos
 const removeProduct = () => {
-    let idProduct = prompt('Inserir ID do produto a ser removido:');
+    // let idProduct = prompt('Inserir ID do produto a ser removido:');
 
 }
 
@@ -133,7 +133,7 @@ const textValidate = text => {
         else if (text !== '' && text.toUpperCase() !== text.toLowerCase())
             validate = true;
         else
-            text = prompt('Informação inserida é inválida. Tente novamente (descrição deve conter texto).')
+            text = prompt('Informação inserida é inválida. Tente novamente (descrição deve conter texto).');
     } while (!validate);
 
     return text;
@@ -148,13 +148,27 @@ const priceValidate = price => {
         
         price = price.replaceAll(',', '.');
         
-        if (!isNaN(price))
+        if (!isNaN(price) && price > 0)
             validate = true;
         else
             price = prompt('Informação inserida é inválida. Tente novamente (preço deve conter apenas números).')
     } while (!validate);
 
     return Number(price).toFixed(2);
+}
+
+// validação do id inserido
+const idValidate = id => {
+    let validate = false;
+    do {
+        if (id === null)
+            return;
+        else if (id !== '' && !isNaN(id) && id > 0)
+            validate = true;
+        else
+            id = prompt('ID informado inválido ou não cadastrado. Tente novamente (ID deve conter somente números).');
+
+    } while (!validate);
 }
 
 // mensagem para operação cancelada antes de concluir
