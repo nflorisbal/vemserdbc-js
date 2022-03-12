@@ -114,15 +114,18 @@ const addProduct = () => {
 
 // função para remover produtos
 const removeProduct = () => {
-    let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
+    if(products.length > 0) {
+        let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
 
-    if (idProduct !== undefined) {
-        products = products.filter(product => product.id !== idProduct);
-        alert("Produto removido com sucesso!");
-    } else {
-        alert(abort());
-        return;
-    }
+        if (idProduct !== undefined) {
+            products = products.filter(product => product.id !== idProduct);
+            alert("Produto removido com sucesso!");
+        } else {
+            alert(abort());
+            return;
+        }
+    } else 
+        alert('Lista de produtos vazia. Voltando ao menu principal.')
 }
 
 const findProduct = id => {
