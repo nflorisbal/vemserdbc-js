@@ -24,3 +24,9 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 ## Aula 4
 
 - Arrow functions
+
+## Aula 5
+
+- Debug / Depuração
+- ECMAScript (Arrays)
+- 

@@ -5,7 +5,6 @@
 
 const combinations = string => {
     let allCombinations = [];
-    // let elements = string.split('');
 
     for(i = 0; i < string.length; i++) {
         allCombinations.push(string[i]);
@@ -16,8 +15,5 @@ const combinations = string => {
     console.log(allCombinations);
 }
 
-Math.
-
-'tri'.
 
 combinations('tri');
