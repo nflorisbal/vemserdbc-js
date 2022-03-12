@@ -97,9 +97,16 @@ const addProduct = () => {
                 "price": price
             };
             products.push(product);
+            alert("Produto inserido com sucesso!");
             id++;
-        } else return;
-    } else return;
+        } else {
+            alert(abort());
+            return;
+        }
+    } else {
+         alert(abort());
+         return;
+    }
 
     console.table(products);
 }
@@ -143,6 +150,11 @@ const priceValidate = price => {
     } while (!validate);
 
     return Number(price).toFixed(2);
+}
+
+// mensagem para operação cancelada antes de concluir
+const abort = () => {
+    return 'Operação cancelada. Retornando ao menu inicial.';
 }
 
 
