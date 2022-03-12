@@ -43,12 +43,9 @@ let id = 4;
 
 // função principal
 const start = () => {
-
     let option;
 
     do {
-        console.table(products);
-
         option = mainMenu();
 
         switch (option) {
@@ -85,6 +82,7 @@ const mainMenu = () => {
     return option;
 }
 
+// função com a estrutura do menu de impressão de tabelas retornando a escolha do usuário
 const menuPrintTable = () => {
     let option = prompt('--- Impressão de Tabelas ---\n\nOperações disponíveis: \n\n(1) Imprimir tabela completa\n(2) Imprimir tabela de descrição\n(3) Imprimir produtos específicos'
         + '\n\n(4) Voltar');
@@ -103,7 +101,7 @@ const addProduct = () => {
         if (price !== undefined) {
             product = {
                 'id': id,
-                'description': description,
+                'description': description.toLowerCase(),
                 'price': price
             };
             products.push(product);
@@ -160,10 +158,12 @@ const printTable = () => {
         option = menuPrintTable();
         switch (option) {
             case '1':
-                console.log('menu 1');
+                console.table(products);
+                alert('Impressão realizada com sucesso no console.')
                 break;
             case '2': ;
-                console.log('menu 2');
+                console.table(products, ['description']);
+                alert('Impressão realizada com sucesso no console.')
                 break;
             case '3': ;
                 console.log('menu 3');
