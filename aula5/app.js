@@ -59,7 +59,7 @@ const start = () => {
                 removeProduct();
                 break;
             case '3':
-                console.log('menu 3 abriu');
+                findProduct();
                 break;
             case '4':
                 console.log('menu 4 abriu');
@@ -112,7 +112,7 @@ const addProduct = () => {
     }
 }
 
-// função para remover produtos
+// função para remover produtos (pelo id)
 const removeProduct = () => {
     if(products.length > 0) {
         let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
@@ -128,8 +128,21 @@ const removeProduct = () => {
         alert('Lista de produtos vazia. Voltando ao menu principal.')
 }
 
-const findProduct = id => {
-    
+// função para buscar produtos (pelo id)
+const findProduct = () => {
+    let tmp = [];
+    if(products.length > 0) {
+        let idProduct = idValidate(prompt('Inserir ID do produto a ser buscado:'));
+
+        if (idProduct !== undefined) {
+            tmp = products.find(product => product.id == idProduct);
+            alert(`Produto encontrado!\n\nDescr.: ${tmp.description}\nValor: ${tmp.price}`);
+        } else {
+            alert(abort());
+            return;
+        }
+    } else 
+        alert('Lista de produtos vazia. Voltando ao menu principal.')
 }
 
 // validação da descrição
