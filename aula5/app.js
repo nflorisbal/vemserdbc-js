@@ -186,11 +186,11 @@ const printTable = () => {
                 console.table(printDescriptionTable(), ['description']);
                 alert('Impressão realizada com sucesso no console.')
                 break;
-            case '3': ;
+            case '3':
                 console.clear();
                 printSpecificTable();
                 break;
-            case '4': ;
+            case '4':
             case null:
                 break;
             default:
@@ -243,9 +243,12 @@ const checkPrices = () => {
 // função para cálculo do patrimônio
 const productValue = () => {
     let value = 0;
-    products.forEach(product => {
-        value += parseFloat(product.price);
-    });
+    debugger;
+    // products.forEach(product => {
+    //     value += parseFloat(product.price);
+    // });
+
+    value = products.map(product => parseFloat(product.price)).reduce((preview, current) => preview + current, 0);
 
     alert(`O patrimônio atual da loja é R$ ${value.toFixed(2)}.`);
 }
