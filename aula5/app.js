@@ -208,7 +208,7 @@ const printDescriptionTable = () => {
         if (!object)
             return filter.concat([current]);
         else
-            filter;
+            return filter;
     }, []);
 
     return descriptionProducts;
