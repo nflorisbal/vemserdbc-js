@@ -202,7 +202,10 @@ const printSpecificTable = () => {
         return;
     }
 
-    console.table(tmp, ['description', 'price']);
+    if(tmp.length > 0) 
+        console.table(tmp, ['description', 'price']);
+    else 
+        alert('Produto não encontrado.');
 }
 
 // função para cálculo do patrimônio
