@@ -268,7 +268,7 @@ const idValidate = id => {
 
 // mensagem para operação cancelada antes de concluir
 const abort = () => {
-    return 'Operação cancelada. Retornando ao menu inicial.';
+    return 'Operação cancelada. Retornando ao menu.';
 }
 
 // chamada da função principal
