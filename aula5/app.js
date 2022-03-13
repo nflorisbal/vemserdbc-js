@@ -75,8 +75,7 @@ const start = () => {
             case '6':
                 emptyRun(checkPrices);
                 break;
-            case '7':
-            case null:
+            case '7': case null:
                 alert('Trabalho concluído. Aplicação encerrada!');
                 break;
             default:
@@ -178,20 +177,19 @@ const printTable = () => {
             case '1':
                 console.clear();
                 console.table(products);
-                alert('Impressão realizada com sucesso no console.')
+                alert('Impressão realizada com sucesso no console.');
                 break;
             case '2':
                 // console.table(products, ['description']);
                 console.clear();
                 console.table(printDescriptionTable(), ['description']);
-                alert('Impressão realizada com sucesso no console.')
+                alert('Impressão realizada com sucesso no console.');
                 break;
             case '3':
                 console.clear();
                 printSpecificTable();
                 break;
-            case '4':
-            case null:
+            case '4': case null:
                 break;
             default:
                 alert('Opção inválida. Tente novamente.');
@@ -243,12 +241,8 @@ const checkPrices = () => {
 // função para cálculo do patrimônio
 const productValue = () => {
     let value = 0;
-    debugger;
-    // products.forEach(product => {
-    //     value += parseFloat(product.price);
-    // });
-
-    value = products.map(product => parseFloat(product.price)).reduce((preview, current) => preview + current, 0);
+    
+    value = products.reduce((preview, current) => preview + parseFloat(current.price), 0);
 
     alert(`O patrimônio atual da loja é R$ ${value.toFixed(2)}.`);
 }
