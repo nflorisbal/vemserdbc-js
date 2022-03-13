@@ -39,7 +39,11 @@
 
 // variáveis globais
 let products = [];
-let id = 4;
+let id = 4; // setado como 4 para o id não sobrepor o array teste
+
+// array de teste
+products = [{ id: 1, description: 'sabonete em barra', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '3.49' }, { id: 3, description: 'shampoo', price: '7.99' }, { id: 1, description: 'sabonete liquido', price: '5.99' }];
+
 
 // função principal
 const start = () => {
@@ -172,7 +176,7 @@ const printTable = () => {
                 alert('Impressão realizada com sucesso no console.')
                 break;
             case '3': ;
-                console.log('submenu 3');
+                printSpecificTable();
                 break;
             case '4': ;
             case null:
@@ -181,6 +185,21 @@ const printTable = () => {
                 alert('Opção inválida. Tente novamente.');
         }
     } while (option !== '4' && option !== null)
+}
+
+// função para imprimir a tabela definida pela descrição
+const printSpecificTable = () => {   
+    let description = textValidate(prompt('Inserir descrição do produto a buscar:'));
+    let tmp = [];
+
+    if(description !== undefined) {
+        tmp = products.filter(product => product.description.includes(description.toLowerCase()));
+    } else {
+        alert(abort());
+        return;
+    }
+
+    console.table(tmp, ['description', 'price']);
 }
 
 // função para cálculo do patrimônio
@@ -245,11 +264,6 @@ const idValidate = id => {
 const abort = () => {
     return 'Operação cancelada. Retornando ao menu inicial.';
 }
-
-
-// array de teste
-products = [{ id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '3.49' }, { id: 3, description: 'shampoo', price: '7.99' },];
-
 
 // chamada da função principal
 start();
