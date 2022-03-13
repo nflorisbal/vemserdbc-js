@@ -39,11 +39,14 @@
 
 // variáveis globais
 let products = [];
-let id = 4; // setado como 4 para o id não sobrepor o array teste
+let id = 6; // setado como 5 para o id não sobrepor o array teste
 
-// array de teste
-products = [{ id: 1, description: 'sabonete em barra', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '3.49' }, { id: 3, description: 'shampoo', price: '7.99' }, { id: 1, description: 'sabonete liquido', price: '5.99' }];
-
+// array utilizado para teste
+products = [{ id: 1, description: 'sabonete em barra', price: '2.99' }, 
+            { id: 2, description: 'pasta de dente', price: '3.49' }, 
+            { id: 3, description: 'shampoo', price: '7.99' }, 
+            { id: 4, description: 'sabonete liquido', price: '5.99' }, 
+            { id: 5, description: 'pasta de dente', price: '4.49' }];
 
 // função principal
 const start = () => {
@@ -58,22 +61,19 @@ const start = () => {
                 addProduct();
                 break;
             case '2':
-                removeProduct();
+                emptyRun(removeProduct);
                 break;
             case '3':
-                findProduct();
+                emptyRun(findProduct);
                 break;
             case '4':
-                printTable();
+                emptyRun(printTable);
                 break;
             case '5':
                 productValue();
                 break;
             case '6':
-                if(products.every(product => parseFloat(product.price))) {
-                    alert('Todos os valores válidos.');
-                } else
-                    alert('Possível valor inválido.');
+                emptyRun(checkPrices);
                 break;
             case '7':
             case null:
@@ -99,6 +99,15 @@ const menuPrintTable = () => {
         + '\n\n(4) Voltar');
 
     return option;
+}
+
+// valida se a lista está vazia antes de manipulá-la
+const emptyRun = process => {
+    if (products.length > 0) {
+        process();
+    } else {
+        alert('Lista de produtos vazia. Não é possível realizar essa operação.');
+    }
 }
 
 // função para incluir produtos 
@@ -130,18 +139,15 @@ const addProduct = () => {
 
 // função para remover produtos (pelo id)
 const removeProduct = () => {
-    if (products.length > 0) {
-        let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
+    let idProduct = idValidate(prompt('Inserir ID do produto a ser removido:'));
 
-        if (idProduct !== undefined) {
-            products = products.filter(product => product.id !== idProduct);
-            alert("Produto removido com sucesso!");
-        } else {
-            alert(abort());
-            return;
-        }
-    } else
-        alert('Lista de produtos vazia. Voltando ao menu principal.')
+    if (idProduct !== undefined) {
+        products = products.filter(product => product.id !== idProduct);
+        alert("Produto removido com sucesso!");
+    } else {
+        alert(abort());
+        return;
+    }
 }
 
 // função para buscar produtos (pelo id)
@@ -164,21 +170,24 @@ const findProduct = () => {
 // função para imprimir as tabelas
 const printTable = () => {
     let option;
-        
+
     do {
         option = menuPrintTable();
-        // console.clear();
 
         switch (option) {
             case '1':
+                console.clear();
                 console.table(products);
                 alert('Impressão realizada com sucesso no console.')
                 break;
-            case '2': ;
-                console.table(products, ['description']);
+            case '2':
+                // console.table(products, ['description']);
+                console.clear();
+                console.table(printDescriptionTable(), ['description']);
                 alert('Impressão realizada com sucesso no console.')
                 break;
             case '3': ;
+                console.clear();
                 printSpecificTable();
                 break;
             case '4': ;
@@ -190,22 +199,45 @@ const printTable = () => {
     } while (option !== '4' && option !== null)
 }
 
+// função para imprimir a tabela com descrições disponíveis
+const printDescriptionTable = () => {
+    let descriptionProducts = [];
+
+    descriptionProducts = products.reduce((filter, current) => {
+        object = filter.find(item => item.description === current.description);
+        if (!object)
+            return filter.concat([current]);
+        else
+            filter;
+    }, []);
+
+    return descriptionProducts;
+}
+
 // função para imprimir a tabela definida pela descrição
-const printSpecificTable = () => {   
+const printSpecificTable = () => {
     let description = textValidate(prompt('Inserir descrição do produto a buscar:'));
     let tmp = [];
 
-    if(description !== undefined) {
+    if (description !== undefined) {
         tmp = products.filter(product => product.description.includes(description.toLowerCase()));
     } else {
         alert(abort());
         return;
     }
 
-    if(tmp.length > 0) 
+    if (tmp.length > 0)
         console.table(tmp, ['description', 'price']);
-    else 
+    else
         alert('Produto não encontrado.');
+}
+
+// função para validar todos os valores da tabela
+const checkPrices = () => {
+    if (products.every(product => parseFloat(product.price))) {
+        alert('Todos os valores válidos.');
+    } else
+        alert('Possível valor inválido.');
 }
 
 // função para cálculo do patrimônio
@@ -215,7 +247,7 @@ const productValue = () => {
         value += parseFloat(product.price);
     });
 
-    alert(`O patrimônio atual da loja é R$ ${value}.`);
+    alert(`O patrimônio atual da loja é R$ ${value.toFixed(2)}.`);
 }
 
 // validação da descrição
@@ -271,5 +303,5 @@ const abort = () => {
     return 'Operação cancelada. Retornando ao menu.';
 }
 
-// chamada da função principal
+// chamada da função inicial
 start();
