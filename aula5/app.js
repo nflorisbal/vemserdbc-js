@@ -65,7 +65,10 @@ const start = () => {
                 productValue();
                 break;
             case '6':
-                console.log('menu 6 abriu');
+                if(products.every(product => parseFloat(product.price))) {
+                    alert('Todos os valores válidos.');
+                } else
+                    alert('Possível valor inválido.');
                 break;
             case '7':
             case null:
@@ -144,7 +147,7 @@ const findProduct = () => {
 
         if (idProduct !== undefined) {
             tmp = products.find(product => product.id == idProduct);
-            alert(`Produto encontrado!\n\nDescr.: ${tmp.description}\nValor: ${tmp.price}`);
+            alert(`Produto encontrado!\n\nDescr.: ${tmp.description}\nValor: R$ ${tmp.price}`);
         } else {
             alert(abort());
             return;
@@ -245,7 +248,7 @@ const abort = () => {
 
 
 // array de teste
-products = [{ id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '4.99' }, { id: 3, description: 'shampoo', price: '7.99' },];
+products = [{ id: 1, description: 'sabonete', price: '2.99' }, { id: 2, description: 'pasta de dente', price: '3.49' }, { id: 3, description: 'shampoo', price: '7.99' },];
 
 
 // chamada da função principal
