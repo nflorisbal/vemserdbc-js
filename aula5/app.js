@@ -51,6 +51,7 @@ const start = () => {
 
     do {
         option = mainMenu();
+        // console.clear();
 
         switch (option) {
             case '1':
@@ -163,9 +164,11 @@ const findProduct = () => {
 // função para imprimir as tabelas
 const printTable = () => {
     let option;
-
+        
     do {
         option = menuPrintTable();
+        // console.clear();
+
         switch (option) {
             case '1':
                 console.table(products);
