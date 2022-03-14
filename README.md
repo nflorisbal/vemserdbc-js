@@ -29,4 +29,8 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 
 - Debug / Depuração
 - ECMAScript (Arrays)
-- 
+
+## Aula 6
+- ECMAScript (Spread / Rest)
+- Desestruturação
+- Classes
