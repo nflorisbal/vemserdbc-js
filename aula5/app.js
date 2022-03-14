@@ -201,13 +201,15 @@ const printTable = () => {
 const printDescriptionTable = () => {
     let descriptionProducts = [];
 
-    descriptionProducts = products.reduce((filter, current) => {
-        object = filter.find(item => item.description === current.description);
-        if (!object)
-            return filter.concat([current]);
-        else
-            return filter;
-    }, []);
+    descriptionProducts = products.map(current => ({ description: current.description }));
+    
+    // descriptionProducts = products.reduce((filter, current) => {
+    //     object = filter.find(item => item.description === current.description);
+    //     if (!object)
+    //         return filter.concat([current]);
+    //     else
+    //         return filter;
+    // }, []);
 
     return descriptionProducts;
 }
