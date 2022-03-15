@@ -49,6 +49,7 @@
 
 // variáveis globais
 let employees = [];
+let id = 4;
 
 // classe colaborador
 class Employee {
@@ -56,20 +57,14 @@ class Employee {
     name;
     registers = [];
 
-    constructor(name) {
-        this.id = Employee.incrementId();
+    constructor(name, id) {
+        this.id = id;
         this.name = name;
     }
 
     checkInOut(day, hours) {
         let register = new Register(day, hours)
         this.registers.push(register);
-    }
-
-    static incrementId() {
-        if (!this.id) this.id = 1;
-        else this.id++;
-        return this.id;
     }
 }
 
@@ -175,8 +170,6 @@ class PromptsAndAlerts {
                 console.table(withoutRegister);
         }
     }
-
-
 }
 
 // objetos utilitários
@@ -195,8 +188,9 @@ const addEmployee = () => {
         if (valid === undefined) {
             return;
         } else if (valid) {
-            employees.push(new Employee(name));
+            employees.push(new Employee(id, name));
             uiHandler.newEmployeeSuccessMsg(name);
+            id++;
         } else {
             uiHandler.invalidNameMsg();
         }
@@ -256,9 +250,9 @@ const initApp = () => {
 }
 
 // dados de teste
-employees.push(new Employee('nelson florisbal'));
-employees.push(new Employee('gabriel gomes'));
-employees.push(new Employee('nathalia duarte'));
+employees.push(new Employee(1, 'nelson florisbal'));
+employees.push(new Employee(2, 'gabriel gomes'));
+employees.push(new Employee(3, 'nathalia duarte'));
 
 // chamada da função inicial
 initApp();
