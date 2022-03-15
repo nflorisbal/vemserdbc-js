@@ -57,8 +57,8 @@ class Employee {
     name;
     registers = [];
 
-    constructor(name, id) {
-        this.id = id;
+    constructor(name) {
+        this.id = id++;
         this.name = name;
     }
 
@@ -188,9 +188,8 @@ const addEmployee = () => {
         if (valid === undefined) {
             return;
         } else if (valid) {
-            employees.push(new Employee(id, name));
+            employees.push(new Employee(name));
             uiHandler.newEmployeeSuccessMsg(name);
-            id++;
         } else {
             uiHandler.invalidNameMsg();
         }
