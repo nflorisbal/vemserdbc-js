@@ -145,15 +145,23 @@ class PromptsAndAlerts {
         alert('ID inválido ou inexistente. Tente novamente.');
     }
 
-    newRegisterSuccessMsg() {
-        alert('Registro de ponto realizado com sucesso');
+    newRegisterSuccessMsg(name, day, time) {
+        alert(`Registro de ${name.toUpperCase()} realizado com sucesso.\n` +
+        `\nDia: ${day}\nHora: ${time}`);
+    }
+
+    adjustTime(hours, minutes) {
+        if(hours < 10) hours = '0' + hours;
+        if(minutes < 10) minutes = '0' + minutes;
+
+        return `${hours}:${minutes}`;
     }
 
     printEmployees() {
         if (employees.length === 0)
             alert('Nenhum colaborador cadastrado.');
         else
-            console.table(employees, ['id', 'name']);
+            console.table(employees);
     }
 
     printEmployeesWithoutRegister() {
@@ -167,6 +175,8 @@ class PromptsAndAlerts {
                 console.table(withoutRegister);
         }
     }
+
+
 }
 
 // objetos utilitários
@@ -197,7 +207,7 @@ const addEmployee = () => {
 const addRegister = () => {
     let today = new Date();
     let day = today.getDate();
-    let time = `${today.getHours()}:${today.getMinutes()}`;
+    let time = uiHandler.adjustTime(today.getHours(), today.getMinutes());
     let id;
     let valid;
 
@@ -209,7 +219,7 @@ const addRegister = () => {
         } else if (valid) {
             let employee = employees.find(employee => employee.id === parseInt(id));
             employee.checkInOut(day, time);
-            uiHandler.newRegisterSuccessMsg();
+            uiHandler.newRegisterSuccessMsg(employee.name, day, time);
         } else {
             uiHandler.invalidIdMsg();
         }
@@ -246,9 +256,9 @@ const initApp = () => {
 }
 
 // dados de teste
-// employees.push(new Employee('NELSON FLORISBAL'));
-// employees.push(new Employee('GABRIEL GOMES'));
-// employees.push(new Employee('NATHALIA DUARTE'));
+employees.push(new Employee('nelson florisbal'));
+employees.push(new Employee('gabriel gomes'));
+employees.push(new Employee('nathalia duarte'));
 
 // chamada da função inicial
 initApp();
