@@ -49,8 +49,7 @@
 
 // variáveis globais
 let employees = [];
-let uiHandler = new PromptsAndAlerts();
-let validate = new Validation();
+
 
 // classe para o colaborador
 class Employee {
@@ -87,7 +86,16 @@ class Register {
 
 // classe para validações
 class Validation {
+    nameIsValid = (name)  => {
+        let validation = false;
 
+        if(name === null) return;
+        
+        if(name !== '' && name.toUpperCase() !== name.toLowerCase())
+            validation = true;
+
+        return validation;
+    }
 }
 
 // classe com alertas, prompts e logs para o usuário
@@ -95,22 +103,47 @@ class PromptsAndAlerts {
     menu() {
         let option = prompt('=== SISTEMA DE COLABORADORES ===\n\n(1) Cadastrar colaborador\n' +
         '(2) Marcar ponto\n(3) Ver lista de colaboradores\n(4) Ver lista de colaboradores sem ponto\n\n(9) Encerrar');
-        
         return option;
     }
 
-    invalidOption() {
+    invalidOptionMsg() {
         alert('Opção inválida. Tente novamente.');
     }
 
-    exitApp() {
+    exitAppMsg() {
         alert('Trabalho concluído. Aplicação encerrada!');
+    }
+
+    askNameMsg() {
+        let name = prompt('Digite o nome do colaborador:');
+        return name;
+    }
+
+    invalidNameMsg() {
+        alert('Nome inválido. Retornando ao menu inicial.');
+    }
+
+    newEmployeeSuccessMsg() {
+        alert('Novo colaborador cadastrado com sucesso.')
     }
 }
 
+// objetos utilitários
+const uiHandler = new PromptsAndAlerts();
+const validate = new Validation();
+
 // função para cadastro do colaborador
 const addEmployee = () => {
-
+    let name = uiHandler.askNameMsg();
+    let valid = validate.nameIsValid(name);
+    if(valid === undefined) {
+        return;
+    } else if (valid) {
+        employees.push(new Employee(name));
+        uiHandler.newEmployeeSuccessMsg();
+    } else {
+        uiHandler.invalidNameMsg();
+    }
 }
 
 // função inicial
@@ -134,10 +167,10 @@ const initApp = () => {
                 console.log('menu4');
                 break;
             case '9': case null:
-                uiHandler.exitApp();
+                uiHandler.exitAppMsg();
                 break;
             default:
-                uiHandler.invalidOption();
+                uiHandler.invalidOptionMsg();
         }
     } while (option !== '9' && option !== null);
 }
