@@ -50,12 +50,11 @@
 // variáveis globais
 let employees = [];
 
-
 // classe para o colaborador
 class Employee {
     id;
     name;
-    register;
+    registers = [];
 
     constructor(name) {
         this.id = Employee.incrementId();
@@ -63,7 +62,8 @@ class Employee {
     }
 
     checkInOut(day, hours) {
-        this.register = new Register(day, hours);
+        let register = new Register(day, hours)
+        this.registers.push(register);
     }
 
     static incrementId() {
@@ -86,12 +86,21 @@ class Register {
 
 // classe para validações
 class Validation {
-    nameIsValid = (name)  => {
+    nameIsValid = name => {
         let validation = false;
 
-        if(name === null) return;
-        
-        if(name !== '' && name.toUpperCase() !== name.toLowerCase())
+        if (name === null) return;
+        if (name !== '' && name.toUpperCase() !== name.toLowerCase())
+            validation = true;
+
+        return validation;
+    }
+
+    idIsValid = id => {
+        let validation = false;
+
+        if (id === null) return;
+        if (!isNaN(id) && employees.some(employee => employee.id === parseInt(id)))
             validation = true;
 
         return validation;
@@ -102,16 +111,16 @@ class Validation {
 class PromptsAndAlerts {
     menu() {
         let option = prompt('=== SISTEMA DE COLABORADORES ===\n\n(1) Cadastrar colaborador\n' +
-        '(2) Marcar ponto\n(3) Ver lista de colaboradores\n(4) Ver lista de colaboradores sem ponto\n\n(9) Encerrar');
+            '(2) Marcar ponto\n(3) Ver lista de colaboradores\n(4) Ver lista de colaboradores sem ponto\n\n(9) Encerrar');
         return option;
-    }
-
-    invalidOptionMsg() {
-        alert('Opção inválida. Tente novamente.');
     }
 
     exitAppMsg() {
         alert('Trabalho concluído. Aplicação encerrada!');
+    }
+
+    invalidOptionMsg() {
+        alert('Opção inválida. Tente novamente.');
     }
 
     askNameMsg() {
@@ -124,7 +133,20 @@ class PromptsAndAlerts {
     }
 
     newEmployeeSuccessMsg() {
-        alert('Novo colaborador cadastrado com sucesso.')
+        alert('Novo colaborador cadastrado com sucesso.');
+    }
+
+    askIdMsg() {
+        let id = prompt('Digite o ID do colaborador para registrar o ponto:');
+        return id;
+    }
+
+    invalidIdMsg() {
+        alert('ID inválido ou inexistente. Retornando ao menu inicial.');
+    }
+
+    newRegisterSuccessMsg() {
+        alert('Registro de ponto realizado com sucesso');
     }
 }
 
@@ -136,7 +158,8 @@ const validate = new Validation();
 const addEmployee = () => {
     let name = uiHandler.askNameMsg();
     let valid = validate.nameIsValid(name);
-    if(valid === undefined) {
+
+    if (valid === undefined) {
         return;
     } else if (valid) {
         employees.push(new Employee(name));
@@ -146,10 +169,28 @@ const addEmployee = () => {
     }
 }
 
+const addRegister = () => {
+    let today = new Date();
+    let day = today.getDate();
+    let hour = today.getHours();
+    let id = uiHandler.askIdMsg();
+    let valid = validate.idIsValid(id);
+
+    if (valid === undefined) {
+        return;
+    } else if (valid) {
+        let employee = employees.find(employee => employee.id === parseInt(id));
+        employee.checkInOut(day, hour);
+        uiHandler.newRegisterSuccessMsg();
+    } else {
+        uiHandler.invalidIdMsg();
+    }
+}
+
 // função inicial
 const initApp = () => {
     let option;
-    
+
     do {
         option = uiHandler.menu();
 
@@ -158,7 +199,7 @@ const initApp = () => {
                 addEmployee();
                 break;
             case '2':
-                console.log('menu2');
+                addRegister();
                 break;
             case '3':
                 console.table(employees);
@@ -182,4 +223,3 @@ employees.push(new Employee('nathalia'));
 
 // chamada da função inicial
 initApp();
-
