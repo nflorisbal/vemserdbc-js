@@ -50,7 +50,7 @@
 // variáveis globais
 let employees = [];
 
-// classe para o colaborador
+// classe colaborador
 class Employee {
     id;
     name;
@@ -73,7 +73,7 @@ class Employee {
     }
 }
 
-// classe para marcação de ponto
+// classe marcação de ponto
 class Register {
     day;
     hours;
@@ -84,7 +84,7 @@ class Register {
     }
 }
 
-// classe para validações
+// classe validações
 class Validation {
     nameIsValid = name => {
         let validation = false;
@@ -100,14 +100,14 @@ class Validation {
         let validation = false;
 
         if (id === null) return;
-        if (!isNaN(id) && employees.some(employee => employee.id === parseInt(id)))
+        if (!isNaN(id) && !id.includes('.') && employees.some(employee => employee.id === parseInt(id)))
             validation = true;
 
         return validation;
     }
 }
 
-// classe com alertas, prompts e logs para o usuário
+// classe alertas, prompts e logs
 class PromptsAndAlerts {
     menu() {
         let option = prompt('=== SISTEMA DE COLABORADORES ===\n\n(1) Cadastrar colaborador\n' +
@@ -120,7 +120,7 @@ class PromptsAndAlerts {
     }
 
     invalidOptionMsg() {
-        alert('Opção inválida. Tente novamente.');
+        alert('Operação inválida. Tente novamente.');
     }
 
     askNameMsg() {
@@ -129,11 +129,11 @@ class PromptsAndAlerts {
     }
 
     invalidNameMsg() {
-        alert('Nome inválido. Retornando ao menu inicial.');
+        alert('Nome inválido. Tente novamente.');
     }
 
-    newEmployeeSuccessMsg() {
-        alert('Novo colaborador cadastrado com sucesso.');
+    newEmployeeSuccessMsg(name) {
+        alert(`Colaborador ${name.toUpperCase()} foi cadastrado com sucesso.`);
     }
 
     askIdMsg() {
@@ -142,11 +142,24 @@ class PromptsAndAlerts {
     }
 
     invalidIdMsg() {
-        alert('ID inválido ou inexistente. Retornando ao menu inicial.');
+        alert('ID inválido ou inexistente. Tente novamente.');
     }
 
     newRegisterSuccessMsg() {
         alert('Registro de ponto realizado com sucesso');
+    }
+
+    printEmployees() {
+        console.table(employees, ['id', 'name']);
+    }
+
+    printEmployeesWithoutRegister() {
+        // debugger;
+        let withoutRegister = employees.filter(employee => employee.registers.length === 0);
+        if(withoutRegister.length === 0)
+            alert('Todos os colaboradores registram o ponto.')
+        else
+            console.table(withoutRegister);
     }
 }
 
@@ -156,35 +169,44 @@ const validate = new Validation();
 
 // função para cadastro do colaborador
 const addEmployee = () => {
-    let name = uiHandler.askNameMsg();
-    let valid = validate.nameIsValid(name);
+    let name;
+    let valid;
 
-    if (valid === undefined) {
-        return;
-    } else if (valid) {
-        employees.push(new Employee(name));
-        uiHandler.newEmployeeSuccessMsg();
-    } else {
-        uiHandler.invalidNameMsg();
-    }
+    do{
+        name = uiHandler.askNameMsg();
+        valid = validate.nameIsValid(name);
+    
+        if (valid === undefined) {
+            return;
+        } else if (valid) {
+            employees.push(new Employee(name));
+            uiHandler.newEmployeeSuccessMsg(name);
+        } else {
+            uiHandler.invalidNameMsg();
+        }
+    }while(!valid);
 }
 
 const addRegister = () => {
     let today = new Date();
     let day = today.getDate();
-    let hour = today.getHours();
-    let id = uiHandler.askIdMsg();
-    let valid = validate.idIsValid(id);
+    let time = `${today.getHours()}:${today.getMinutes()}`;
+    let id;
+    let valid;
 
-    if (valid === undefined) {
-        return;
-    } else if (valid) {
-        let employee = employees.find(employee => employee.id === parseInt(id));
-        employee.checkInOut(day, hour);
-        uiHandler.newRegisterSuccessMsg();
-    } else {
-        uiHandler.invalidIdMsg();
-    }
+    do {
+        id = uiHandler.askIdMsg();
+        valid = validate.idIsValid(id);
+        if (valid === undefined) {
+            return;
+        } else if (valid) {
+            let employee = employees.find(employee => employee.id === parseInt(id));
+            employee.checkInOut(day, time);
+            uiHandler.newRegisterSuccessMsg();
+        } else {
+            uiHandler.invalidIdMsg();
+        }
+    }while(!valid);
 }
 
 // função inicial
@@ -202,10 +224,10 @@ const initApp = () => {
                 addRegister();
                 break;
             case '3':
-                console.table(employees);
+                uiHandler.printEmployees();
                 break;
             case '4':
-                console.log('menu4');
+                uiHandler.printEmployeesWithoutRegister();
                 break;
             case '9': case null:
                 uiHandler.exitAppMsg();
@@ -217,9 +239,9 @@ const initApp = () => {
 }
 
 // dados de teste
-employees.push(new Employee('nelson'));
-employees.push(new Employee('gabriel'));
-employees.push(new Employee('nathalia'));
+employees.push(new Employee('NELSON FLORISBAL'));
+// employees.push(new Employee('GABRIEL GOMES'));
+// employees.push(new Employee('NATHALIA DUARTE'));
 
 // chamada da função inicial
 initApp();
