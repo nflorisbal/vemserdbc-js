@@ -150,16 +150,22 @@ class PromptsAndAlerts {
     }
 
     printEmployees() {
-        console.table(employees, ['id', 'name']);
+        if (employees.length === 0)
+            alert('Nenhum colaborador cadastrado.');
+        else
+            console.table(employees, ['id', 'name']);
     }
 
     printEmployeesWithoutRegister() {
-        // debugger;
-        let withoutRegister = employees.filter(employee => employee.registers.length === 0);
-        if(withoutRegister.length === 0)
-            alert('Todos os colaboradores registram o ponto.')
-        else
-            console.table(withoutRegister);
+        if(employees. length === 0)
+            alert('Nenhum colaborador cadastrado.');
+        else {
+            let withoutRegister = employees.filter(employee => employee.registers.length === 0);
+            if(withoutRegister.length === 0)
+                alert('Todos os colaboradores registraram o ponto.')
+            else
+                console.table(withoutRegister);
+        }
     }
 }
 
@@ -187,6 +193,7 @@ const addEmployee = () => {
     }while(!valid);
 }
 
+// função para marcação do ponto
 const addRegister = () => {
     let today = new Date();
     let day = today.getDate();
@@ -239,7 +246,7 @@ const initApp = () => {
 }
 
 // dados de teste
-employees.push(new Employee('NELSON FLORISBAL'));
+// employees.push(new Employee('NELSON FLORISBAL'));
 // employees.push(new Employee('GABRIEL GOMES'));
 // employees.push(new Employee('NATHALIA DUARTE'));
 
