@@ -37,3 +37,7 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 
 ## Aula 7
 - DOM
+
+## Aula 8
+- DOM
+- Moments.js

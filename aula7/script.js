@@ -64,7 +64,6 @@ const deleteTodoTask = () => {
     changeTitleTodo();
 }
 
-
 const init = () => {
     addTodoItem();
 }
