@@ -34,3 +34,6 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 - ECMAScript (Spread / Rest)
 - Desestruturação
 - Classes
+
+## Aula 7
+- DOM
