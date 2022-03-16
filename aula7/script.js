@@ -6,7 +6,7 @@ const addTodoItem = () => {
 }
 
 const removeTodoItem = () => {
-
+    // const btnRemove = document.getElementById('bt')
 }
 
 const changeTitleTodo = () => {
@@ -21,8 +21,6 @@ const getTextInput = () => {
     let input = document.getElementById('input-todo-description');
     return input.value;
 }
-
-
 
 const setDivTodo = (element, id) => {
     element.setAttribute('id', id);
@@ -55,10 +53,14 @@ const createTodoTask = () => {
     setTaskText(pTask, `p-task-${todoCount}`, getTextInput());
 
     divListTodo.appendChild(newDivTodo);
-    newDivTodo.appendChild(btnCheck);
-    newDivTodo.appendChild(pTask);
-    newDivTodo.appendChild(btnDelete);
+    newDivTodo.append(btnCheck, pTask, btnDelete);
 
+    changeTitleTodo();
+}
+
+const deleteTodoTask = () => {
+    todoCount--;
+    
     changeTitleTodo();
 }
 
