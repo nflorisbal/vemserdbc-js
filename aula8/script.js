@@ -1,8 +1,8 @@
-const CLASS_UI_COLAB = [ 'w-50', 'border', 'border-primary', 'rounded', 'flex-column', 'd-flex', 'align-items-center', 'justify-content-center', 'd-none'];
-const CLASS_LI_COLAB = [ 'w-100', 'mt-2', 'p-3', 'd-flex', 'align-items-center', 'justify-content-between'];
+const CLASS_UI_COLAB = ['w-50', 'border', 'border-primary', 'rounded', 'flex-column', 'd-flex', 'align-items-center', 'justify-content-center', 'd-none'];
+const CLASS_LI_COLAB = ['w-100', 'mt-2', 'p-3', 'd-flex', 'align-items-center', 'justify-content-between'];
 
 let id = 1;
-let listaColaboradores = [ ];
+let listaColaboradores = [];
 
 class Colaborador {
 	id;
@@ -11,7 +11,7 @@ class Colaborador {
 	email;
 	senha;
 
-	constructor (nome, dataNascimento, email, senha) {
+	constructor(nome, dataNascimento, email, senha) {
 		this.id = id++;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
@@ -21,15 +21,15 @@ class Colaborador {
 }
 
 const adicionarAtributos = (elemento, id, classes) => {
-  elemento.setAttribute('id', id);
-  elemento.classList.add(...classes);
+	elemento.setAttribute('id', id);
+	elemento.classList.add(...classes);
 }
 
 const mudarTituloColab = () => {
 	const tituloColab = document.getElementById('titulo-colab');
-	listaColaboradores.length === 0 
-		? tituloColab.textContent = 'Nenhum colaborador cadastrado ainda.' 
-		:	tituloColab.textContent = 'Lista de colaboradores:';
+	listaColaboradores.length === 0
+		? tituloColab.textContent = 'Nenhum colaborador cadastrado ainda.'
+		: tituloColab.textContent = 'Lista de colaboradores:';
 }
 
 const msgDadoValido = (validade, id) => {
@@ -63,8 +63,6 @@ const validarSenha = (event) => {
 
 const validarData = (event) => {
 	const input = event ? event.target : document.getElementById('data-input');
-	
-
 	let data = moment(input.value, 'DD/MM/YYYY');
 
 	let ehDataValida = data.isValid();
@@ -74,25 +72,43 @@ const validarData = (event) => {
 	adicionarMascaraData(input, event);
 
 	const ehValido = ehDataValida && ehEntreDatas && !ehDataFutura;
-	
+
 	msgDadoValido(ehValido, 'data-erro');
 
 	return ehValido;
 }
 
 const adicionarMascaraData = (input, event) => {
+	let data = input.value;
+	data = input.value.replaceAll('/', '');
+	let dia = data.substring(0, 2);
+	let mes = data.substring(2, 4);
+	let ano = data.substring(4);
+
+	let dataEspalhada = [...data];
+
+	if(event.code !== 'Backspace' && event.code !== 'Delete') {
+		switch (dataEspalhada.length) {
+			case 2:
+				input.value = `${dia}/`;
+				break;
+			case 5:
+				input.value = `${dia}/${mes}/${ano}`;
+				break;
+		}
+	}
 }
 
 const adicionarColaborador = (/*nome, data, email, senha*/) => {
 	let containerColaboradores = document.getElementById('container-colaboradores');
-	
+
 	let uiColab = document.createElement('ui');
 	adicionarAtributos(uiColab, 'ui-colab', CLASS_UI_COLAB);
-	
 
-	listaColaboradores.length === 0 
+
+	listaColaboradores.length === 0
 		? uiColab.classList.add('d-none')
-		:	uiColab.classList.remove('d-none');
+		: uiColab.classList.remove('d-none');
 
 	// let liColab = document.createElement('li');
 
