@@ -61,17 +61,19 @@ const validarNome = () => {
 
 const validarEmail = () => {
 	const email = document.getElementById('email-input').value;
-	
 	if (email == '') return;
 
-	let primeiroCaracter = email[0].toLowerCase() !== email[0].toUpperCase();
+	const arrayEmail = email.split('');
+
+	let primeiroCaracter = arrayEmail[0].toLowerCase() !== arrayEmail[0].toUpperCase();
 	let possuiArroba = email.includes('@');
-	let emails = email.split('@');
+	
+	let emailSplit = email.split('@');
+
+	let possuiDbcCompany = emailSplit[1].includes ('dbccompany');
 	
 
-
-
-	const ehValido = primeiroCaracter && possuiArroba;
+	const ehValido = primeiroCaracter && possuiArroba && possuiDbcCompany;
 	msgDadoValido(ehValido, 'email-erro');
 	
 	return ehValido;
