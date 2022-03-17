@@ -1,5 +1,7 @@
 const CLASS_UI_COLAB = ['w-50', 'border', 'border-primary', 'rounded', 'flex-column', 'd-flex', 'align-items-center', 'justify-content-center', 'd-none'];
 const CLASS_LI_COLAB = ['w-100', 'mt-2', 'p-3', 'd-flex', 'align-items-center', 'justify-content-between'];
+const TITULO_COLAB_VAZIO = 'Nenhum colaborador cadastrado ainda';
+const TITULO_COLAB = 'Colaboradores';
 
 let id = 1;
 let listaColaboradores = [];
@@ -28,14 +30,26 @@ const adicionarAtributos = (elemento, id, classes) => {
 const mudarTituloColab = () => {
 	const tituloColab = document.getElementById('titulo-colab');
 	listaColaboradores.length === 0
-		? tituloColab.textContent = 'Nenhum colaborador cadastrado ainda.'
-		: tituloColab.textContent = 'Lista de colaboradores:';
+		? tituloColab.textContent = TITULO_COLAB_VAZIO
+		: tituloColab.textContent = TITULO_COLAB;
 }
 
 const msgDadoValido = (validade, id) => {
 	const component = document.getElementById(id);
 
 	validade ? component.classList.add('d-none') : component.classList.remove('d-none');
+}
+
+const validarNome = () => {
+	const nomeInput = document.getElementById('nome-input');
+	const nome = nomeInput.value;
+
+	let possuiSohLetras = [...nome].every(letra => letra.toLowerCase() !== letra.toUpperCase() || letra == ' ');
+
+	const ehValido = possuiSohLetras;
+	msgDadoValido(ehValido, 'nome-erro');
+	
+	return ehValido;
 }
 
 const validarEmail = () => {
@@ -55,7 +69,6 @@ const validarSenha = (event) => {
 	let peloMenosOito = senha.length >= 8;
 
 	const ehValido = possuiLetraMinuscula && possuiLetraMaiuscula && possuiEspecial && possuiNumero && peloMenosOito;
-
 	msgDadoValido(ehValido, 'senha-erro');
 
 	return ehValido;
@@ -72,7 +85,6 @@ const validarData = (event) => {
 	adicionarMascaraData(input, event);
 
 	const ehValido = ehDataValida && ehEntreDatas && !ehDataFutura;
-
 	msgDadoValido(ehValido, 'data-erro');
 
 	return ehValido;
@@ -117,9 +129,9 @@ const adicionarColaborador = (/*nome, data, email, senha*/) => {
 
 const validarCadastro = (event) => {
 	event.preventDefault();
-	adicionarColaborador()
 
-
-	// console.log(`${validarData()}`)
-	// console.log(`Cadastro ${validarData() && validarEmail() && validarSenha() ? 'válido!' : 'inválido'}`);
+	// console.log(`Nome ${validarNome()}`);
+	// console.log(`Data ${validarData()}`);
+	// console.log(`Email ${validarEmail()}`);
+	// console.log(`Senha ${validarSenha()}`);
 }

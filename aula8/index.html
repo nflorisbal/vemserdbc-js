@@ -19,8 +19,8 @@
 
             <div class="p-3 d-flex flex-column">
                 <span>Nome</span>
-                <input>
-                <span class="d-none text-danger">Nome inválido</span>
+                <input id="nome-input" maxlength="50" onkeyup="validarNome(event)">
+                <span id="nome-erro" class="d-none text-danger">Nome inválido</span>
             </div>
 
             <div class="p-3 d-flex flex-column">
