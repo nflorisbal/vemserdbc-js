@@ -1,32 +1,47 @@
-/* 
-				adicionar um eventListener para o evento "onkeyup" do input email-input que terá como ação esta função de validarEmail
-				deve validar as seguintes regras:
-				1 - obrigatório ter uma letra como primeiro caractér;
-				2 - obrigatório possuir um '@';
-				3 - obrigatório possuir pelo menos um '.' (ponto) depois do '@' e não podem estar juntos, ex: email@.ig // inválido pois o ponto está junto do arroba;
-				4 - não pode terminar com '.' (ponto), ex: "email@pessoal.";
-				5 - deve ter pelo menos duas letras depois de um '.' (ponto), ex: "email@pessoal.c" // inválido pois tem somente o 'c' depois do '.';
-				6 - deve possuir o domínio 'dbccompany'
-				obs: caso o email (value) que está no input for válido/inválido deverá alterar a span com id="email-erro" para fique com um display visível ou invisível (dependendo da situação)
-		*/
+const CLASS_UI_COLAB = [ 'w-50', 'border', 'border-primary', 'rounded', 'flex-column', 'd-flex', 'align-items-center', 'justify-content-center', 'd-none'];
+const CLASS_LI_COLAB = [ 'w-100', 'mt-2', 'p-3', 'd-flex', 'align-items-center', 'justify-content-between'];
+
+let id = 1;
+let listaColaboradores = [ ];
+
+class Colaborador {
+	id;
+	nome;
+	dataNascimento;
+	email;
+	senha;
+
+	constructor (nome, dataNascimento, email, senha) {
+		this.id = id++;
+		this.nome = nome;
+		this.dataNascimento = dataNascimento;
+		this.email = email;
+		this.senha = senha;
+	}
+}
+
+const adicionarAtributos = (elemento, id, classes) => {
+  elemento.setAttribute('id', id);
+  elemento.classList.add(...classes);
+}
+
+const mudarTituloColab = () => {
+	const tituloColab = document.getElementById('titulo-colab');
+	listaColaboradores.length === 0 
+		? tituloColab.textContent = 'Nenhum colaborador cadastrado ainda.' 
+		:	tituloColab.textContent = 'Lista de colaboradores:';
+}
+
+const msgDadoValido = (validade, id) => {
+	const component = document.getElementById(id);
+
+	validade ? component.classList.add('d-none') : component.classList.remove('d-none');
+}
 
 const validarEmail = () => {
 	const ehValido = false;
 	return ehValido;
 }
-
-/* 
-			adicionar um eventListener para o evento "onkeyup" do input senha-input que terá como ação esta função de validarSenha
-			deve validar as seguintes regras:
-			1 - obrigatório ter ao menos uma letra minúscula;
-			2 - obrigatório ter ao menos uma letra maiúscula;
-			3 - obrigatório ter ao menos um número;
-			4 - obrigatório ter ao menos um carácter especial;
-			5 - obrigatório ter ao menos 8 caractéres;
-			6 - a senha não pode conter espaços em branco;
-
-			obs: caso a senha (value) que está no input for válido/inválido deverá alterar a span com id="senha-erro" para fique com um display visível ou invisível (dependendo da situação)
-		*/
 
 const validarSenha = (event) => {
 	const input = event ? event.target : document.getElementById('senha-input');
@@ -38,46 +53,57 @@ const validarSenha = (event) => {
 	let possuiEspecial = caracteresSenha.some(c => c.toUpperCase() === c.toLowerCase() && isNaN(c));
 	let possuiNumero = caracteresSenha.some(c => c.toUpperCase() === c.toLowerCase() && !isNaN(c));
 	let peloMenosOito = senha.length >= 8;
-	
+
 	const ehValido = possuiLetraMinuscula && possuiLetraMaiuscula && possuiEspecial && possuiNumero && peloMenosOito;
-	
+
+	msgDadoValido(ehValido, 'senha-erro');
+
 	return ehValido;
 }
 
-const adicionarMascaraData = (input, data) => {
-	
-	switch (data.length) {
-		case 2:
-			input.value = `${data}/`;
-		case 4:
-
-	}
-	console.log(input.value);
-}
-
-/* 
-				adicionar um eventListener para o evento "onkeyup" do input data-input que terá como ação esta função de validarSenha
-				deve validar as seguintes regras:
-				1 - deve ser uma data válida;
-				2 - não pode ser uma data futura;
-				3 - deve ser uma data entre 18 e 26 anos; (idade > 18)
-				obs: caso o email (value) que está no input for válido/inválido deverá alterar a span com id="data-erro" para fique com um display visível ou invisível (dependendo da situação)
-		*/
 const validarData = (event) => {
 	const input = event ? event.target : document.getElementById('data-input');
-	let data = moment(input.value, 'DDMMYYYY');
+	
+
+	let data = moment(input.value, 'DD/MM/YYYY');
+
 	let ehDataValida = data.isValid();
 	let ehDataFutura = data.isAfter(new Date);
 	let ehEntreDatas = data.isBetween(moment().subtract(26, 'years'), moment().subtract(18, 'years'));
 
-	adicionarMascaraData(input, data);
+	adicionarMascaraData(input, event);
 
 	const ehValido = ehDataValida && ehEntreDatas && !ehDataFutura;
+	
+	msgDadoValido(ehValido, 'data-erro');
 
 	return ehValido;
 }
 
+const adicionarMascaraData = (input, event) => {
+}
+
+const adicionarColaborador = (/*nome, data, email, senha*/) => {
+	let containerColaboradores = document.getElementById('container-colaboradores');
+	
+	let uiColab = document.createElement('ui');
+	adicionarAtributos(uiColab, 'ui-colab', CLASS_UI_COLAB);
+	
+
+	listaColaboradores.length === 0 
+		? uiColab.classList.add('d-none')
+		:	uiColab.classList.remove('d-none');
+
+	// let liColab = document.createElement('li');
+
+	// listaColaboradores.push(new Colaborador(nome, data, email, senha));
+}
+
 const validarCadastro = (event) => {
 	event.preventDefault();
-	console.log(`Cadastro ${validarData() && validarEmail() && validarSenha() ? 'válido!' : 'inválido'}`);
+	adicionarColaborador()
+
+
+	// console.log(`${validarData()}`)
+	// console.log(`Cadastro ${validarData() && validarEmail() && validarSenha() ? 'válido!' : 'inválido'}`);
 }
