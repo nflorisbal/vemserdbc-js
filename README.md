@@ -41,3 +41,8 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 ## Aula 8
 - DOM
 - Moments.js
+
+## Aula 9
+- Requisições HTTP
+- CRUD e APIs
+- JSON
