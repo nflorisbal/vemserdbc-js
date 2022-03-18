@@ -1,3 +1,25 @@
 {
-    
+  "colaboradores": [
+    {
+      "nome": "Nelson Santos Florisbal",
+      "dataNascimento": "11/11/2000",
+      "email": "florisbal@gmai.com",
+      "senha": "Abc1234@",
+      "id": 1
+    },
+    {
+      "nome": "Nelson Florisbal",
+      "dataNascimento": "11/11/2000",
+      "email": "florisbal@gmal.com",
+      "senha": "Abc1234@",
+      "id": 2
+    },
+    {
+      "nome": "Nelson Florisbal",
+      "dataNascimento": "11/11/2000",
+      "email": "florisbal@gmail.com",
+      "senha": "Abc1234@",
+      "id": 3
+    }
+  ]
 }

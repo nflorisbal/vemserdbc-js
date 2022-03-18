@@ -1,10 +1,52 @@
+class Colaborador {
+  id;
+  nome;
+  dataNascimento;
+  email;
+  senha;
+
+  constructor(nome, dataNascimento, email, senha) {
+    this.nome = nome;
+    this.dataNascimento = dataNascimento;
+    this.email = email;
+    this.senha = senha;
+  }
+}
+
+//#region Validação Nome
+const validarNome = () => {
+  const nomeInput = document.getElementById('nome-input-registration');
+  const nome = nomeInput.value;
+
+  let possuiSohLetras = [...nome].every(letra => letra.toLowerCase() !== letra.toUpperCase() || letra == ' ');
+
+  const ehValido = possuiSohLetras;
+
+  // para setar o texto de erro em vermelho
+  let erroNome = document.getElementById('nome-registration-error');
+  erroNome.setAttribute('class', ehValido ? 'd-none' : 'text-danger');
+
+  return ehValido;
+}
+
+const primeiraLetra = string => {
+  array = string.split(' ');
+
+  for (i in array) {
+    array[i] = array[i].charAt(0).toUpperCase() + array[i].slice(1);
+  }
+
+  return array.join(' ');
+}
+//#endregion Validação Nome
+
 //#region Validação Email
 const validarEmail = () => {
   let emailDigitado = document.getElementById('email-input-registration').value;
   let listaCaracteres = emailDigitado.split(''); // [...emailDigitado]
 
   let emailSplit = emailDigitado.split('@');
-  
+
   let possuiArroba = emailSplit.length > 1;
 
   let dominioEmail = possuiArroba ? emailSplit[1] : '';
@@ -12,7 +54,7 @@ const validarEmail = () => {
 
   let possuiPontosNoDominio = dominioEmailSplit.length > 1;
 
-  let possuiCaracteresEntrePontos = dominioEmailSplit.every( d => d.length > 1 );
+  let possuiCaracteresEntrePontos = dominioEmailSplit.every(d => d.length > 1);
 
   let comecaComLetra = listaCaracteres.length ? listaCaracteres[0].toUpperCase() !== listaCaracteres[0].toLowerCase() : false;
 
@@ -31,20 +73,20 @@ const validarSenha = () => {
   let senhaDigitada = document.getElementById('password-input-registration').value;
   let listaCaracteres = senhaDigitada.split('');
 
-  let letras = listaCaracteres.filter( char => char.toLowerCase() !== char.toUpperCase() );
+  let letras = listaCaracteres.filter(char => char.toLowerCase() !== char.toUpperCase());
 
-  let possuiLetraMaiuscula = letras.some( l => l.toUpperCase() === l ); // "A".toUppercase() === "A"
-  let possuiLetraMinuscula = letras.some( l => l.toLowerCase() === l );
+  let possuiLetraMaiuscula = letras.some(l => l.toUpperCase() === l); // "A".toUppercase() === "A"
+  let possuiLetraMinuscula = letras.some(l => l.toLowerCase() === l);
 
-  let possuiCharEspecial = listaCaracteres.some( char => char.toLowerCase() === char.toUpperCase() && isNaN(parseInt(char)) );
-  let possuiNumero = listaCaracteres.some( char => char.toLowerCase() === char.toUpperCase() && !isNaN(parseInt(char)) );
+  let possuiCharEspecial = listaCaracteres.some(char => char.toLowerCase() === char.toUpperCase() && isNaN(parseInt(char)));
+  let possuiNumero = listaCaracteres.some(char => char.toLowerCase() === char.toUpperCase() && !isNaN(parseInt(char)));
 
   let possuiOitoCaracteres = senhaDigitada.length >= 8;
 
   let naoPossuiEspacos = !senhaDigitada.includes(' ');
 
-  let ehValido = possuiOitoCaracteres && possuiLetraMaiuscula && possuiLetraMinuscula && 
-      possuiCharEspecial && possuiNumero && naoPossuiEspacos;
+  let ehValido = possuiOitoCaracteres && possuiLetraMaiuscula && possuiLetraMinuscula &&
+    possuiCharEspecial && possuiNumero && naoPossuiEspacos;
 
   // para setar o texto de erro em vermelho
   let erroSenha = document.getElementById('password-registration-error');
@@ -55,7 +97,7 @@ const validarSenha = () => {
 //#endregion Validação Senha
 
 //#region Validação Data
-const validarData = () => { 
+const validarData = () => {
   let inputData = document.getElementById('date-input-registration');
   let dataDigitada = inputData.value;
 
@@ -79,34 +121,29 @@ const validarData = () => {
 
 const adicionarMascaraData = (input, data) => {
   let listaCaracteres = [...data];
-  
+
   let listaFiltrada = listaCaracteres.filter(c => !isNaN(parseInt(c)));
-  if(listaFiltrada && listaFiltrada.length) {
-      let dataDigitada = listaFiltrada.join('');
+  if (listaFiltrada && listaFiltrada.length) {
+    let dataDigitada = listaFiltrada.join('');
 
-      const { length } = dataDigitada;
+    const { length } = dataDigitada;
 
-      switch(length) { 
-          case 0: case 1: case 2:
-              input.value = dataDigitada; 
-              break;
-          case 3: case 4:
-              input.value = `${dataDigitada.substring(0, 2)}/${dataDigitada.substring(2, 4)}`;
-              break;
-          default:
-              input.value = `${dataDigitada.substring(0, 2)}/${dataDigitada.substring(2, 4)}/${dataDigitada.substring(4, 8)}`;
-      }
+    switch (length) {
+      case 0: case 1: case 2:
+        input.value = dataDigitada;
+        break;
+      case 3: case 4:
+        input.value = `${dataDigitada.substring(0, 2)}/${dataDigitada.substring(2, 4)}`;
+        break;
+      default:
+        input.value = `${dataDigitada.substring(0, 2)}/${dataDigitada.substring(2, 4)}/${dataDigitada.substring(4, 8)}`;
+    }
   }
 }
 //#endregion Validação Data
 
-
-const resetarCampos = (...campos) => {
-  campos.forEach(c => c.value = '');
-}
-
 const alternarClasses = (elemento, ...classes) => {
-  classes.forEach(classe =>{
+  classes.forEach(classe => {
     elemento.classList.toggle(classe);
   });
 }
@@ -119,33 +156,75 @@ const irPara = (origem, destino) => {
   alternarClasses(elementoDestino, 'd-none', 'd-flex');
 }
 
+const validarLogin = (dados) => {
+  // debugger;
+  let data = buscaColaboradores();
+  console.log(data);
 
-const validarLogin = () => {
-  
+  // se sucesso
+  // irPara('login', 'home');
 }
-
 
 const listarUsuarios = () => {
   // aqui entra lógica de GET para os usuários
 };
 
+const validarCadastro = (event) => {
+  event.preventDefault();
+  let cadastroValido = validarNome() && validarData() && validarEmail() && validarSenha();
 
-
-const validarCadastro = () => {
-  let cadastroValido = validarData() && validarEmail() && validarSenha();
-  console.log(`Cadastro ${cadastroValido ? 'válido!' : 'inválido'}`);
-
-  if(cadastroValido) {
-    cadastrarUsuario();
+  if (cadastroValido) {
+    cadastrarUsuario(event);
   }
 }
 
-
 const excluirColaborador = () => {
-  
+
 }
 
+const limparCampos = () => {
+  document.getElementById("nome-input-registration").value = '';
+  document.getElementById("date-input-registration").value  = '';
+  document.getElementById("email-input-registration").value  = '';
+  document.getElementById("password-input-registration").value  = '';
+}
 
-const cadastrarUsuario = () => {
+const cadastrarUsuario = (event) => {
+  event.preventDefault();
 
+  let nome = document.getElementById("nome-input-registration").value;
+  let dataNascimento = document.getElementById("date-input-registration").value;
+  let email = document.getElementById("email-input-registration").value;
+  let senha = document.getElementById("password-input-registration").value;
+
+  nome = primeiraLetra(nome);
+
+  const objColaborador = new Colaborador(nome, dataNascimento, email, senha);
+
+  axios.post(`http://localhost:3000/colaboradores`, objColaborador)
+    .then((sucesso) => {
+      // data possui o objeto inserido, no caso do post
+      sucesso.data.id;
+      
+      const li = document.createElement('li');
+      li.setAttribute('id', `colab-${sucesso.data.id}`);
+
+      limparCampos();
+      irPara('registration', 'login');
+    }, (erro) => {
+      // debugger
+    });
 };
+
+
+// const buscaColaboradores = () => {
+let datas = axios.get(`http://localhost:3000/colaboradores`).then((sucesso) => {
+  sucesso.data;
+  console.log(sucesso.data);
+  // return sucesso.data;
+}, (erro) => {
+  // debugger
+});
+// }
+
+console.log(datas);

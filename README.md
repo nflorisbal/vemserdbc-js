@@ -46,3 +46,4 @@ Exercícios desenvolvidos durante as aulas de JavaScript do **Programa Vem Ser D
 - Requisições HTTP
 - CRUD e APIs
 - JSON
+- Promise

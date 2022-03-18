@@ -11,7 +11,7 @@
 </head>
 <body style="height: 100vh;">
     <div id="container" class="h-100 flex-column d-flex align-items-center justify-content-center">
-        <form id="login" class="w-50 pb-3 border border-primary rounded flex-column d-flex align-items-center justify-content-center">
+        <form id="login" class="d-flex w-50 pb-3 border border-primary rounded flex-column align-items-center justify-content-center">
             <div class="bg bg-primary w-100 h-100 text-center p-2 text-white">
                 <span>Login do Sistema</span>
             </div>
@@ -32,9 +32,14 @@
             </div>
         </form>
 
-        <form id="registration" class="w-50 pb-3 border border-primary rounded flex-column align-items-center justify-content-center d-none">
+        <div id="registration" class="w-50 pb-3 border border-primary rounded flex-column align-items-center justify-content-center d-none">
             <div class="bg bg-primary w-100 h-100 text-center p-2 text-white">
                 <span>Cadastro</span>
+            </div>
+            <div class="p-3 d-flex flex-column">
+                <span>Nome*</span>
+                <input id="nome-input-registration" onkeyup="validarNome()">
+                <span id="nome-registration-error" class="d-none text-danger">Nome inválido</span>
             </div>
 
             <div class="p-3 d-flex flex-column">
@@ -51,21 +56,22 @@
 
             <div class="p-3 d-flex flex-column">
                 <span>Senha*</span>
-                <input id="password-input-registration" onkeyup="validarSenha()">
+                <input id="password-input-registration">
                 <span id="password-registration-error" class="d-none">Senha inválida</span>
             </div>
 
             <div class="w-50 d-flex justify-content-between">
                 <button type="button" onclick="irPara('registration', 'login')">Voltar</button>
-                <button type="button" id="register-btn" onclick="validarCadastro()">Cadastrar</button>
+                <button type="button" id="register-btn" onclick="validarCadastro(event)">Cadastrar</button>
             </div>
-        </form>
+        </div>
 
         <div id="home" class="w-50 pb-3 border border-primary rounded flex-column align-items-center justify-content-center d-none">
             <div class="bg bg-primary w-100 h-100 text-center p-2 text-white">
                 <span>Página Inicial</span>
             </div>
 
+            <!-- QUEM QUISER PODE USAR UM BOTÃO PARA PESQUISAR OU PESQUISAR OS USUÁRIOS QUANDO ENTRAR NA HOME -->
             <button class="mt-3" type="button" onclick="listarUsuarios()">Pesquisar usuários</button>
 
             <ul id="user-list">
@@ -76,7 +82,7 @@
     </div>
 
     <script src="./node_modules/axios/dist/axios.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" type="text/javascript"></script>
     <script src="script.js"></script>
 </body>
 </html>
