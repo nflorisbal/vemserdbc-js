@@ -20,6 +20,13 @@
       "email": "florisbal@gmail.com",
       "senha": "Abc1234@",
       "id": 3
+    },
+    {
+      "nome": "Tiago Schmidt",
+      "dataNascimento": "11/11/2002",
+      "email": "tiago@dbcompany.com",
+      "senha": "Abc@1234",
+      "id": 4
     }
   ]
 }
